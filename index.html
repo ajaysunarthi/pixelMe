@@ -22,7 +22,16 @@
     <script>
     	var img = document.getElementById('image');
     	var target = document.getElementById('target');
-    	
+
+    	var options = {
+        image: img,
+        targetElement: target,
+        width: img.width,
+        height: img.height
+    };
+
+    pixelMe(options);
+
     </script>
 </body>
 </html>
