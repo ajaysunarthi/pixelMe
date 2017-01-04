@@ -38,12 +38,15 @@
             <option value="6">6</option>
             <option value="7">7</option>
         </select>
-                
+
     </div>
     <script src="pixelMe.js"></script>
     <script>
     var img = document.getElementById('image');
+    var input = document.getElementById('input-img');
     var target = document.getElementById('target');
+    var tileType = document.getElementById('tileType');
+    var tileSize = document.getElementById('tileSize');
 
     var options = {
         image: img,
@@ -53,6 +56,42 @@
     };
 
     pixelMe(options);
+
+    input.addEventListener('change', function(e) {
+        while (target.firstChild) {
+            target.removeChild(target.firstChild);
+        }
+        var selectedFile = e.target.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function(evt) {
+            img.src = evt.target.result;
+            options.width = document.getElementById('image').width;
+            options.height = document.getElementById('image').height;
+            pixelMe(options);
+        }
+
+        reader.readAsDataURL(selectedFile);
+    }, false);
+
+    tileType.addEventListener('change', function() {
+        while (target.firstChild) {
+            target.removeChild(target.firstChild);
+        }
+        options.tileShape = this.options[this.selectedIndex].textContent;
+        pixelMe(options);
+    }, false);
+
+    tileSize.addEventListener('change', function() {
+        while (target.firstChild) {
+            target.removeChild(target.firstChild);
+        }
+        var size = parseInt(this.options[this.selectedIndex].textContent);
+        options.tileWidth = size;
+        options.tileHeight = size;
+        pixelMe(options);
+    }, false);
+    
     </script>
 </body>
 
