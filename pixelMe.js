@@ -46,13 +46,42 @@ function pixelMe(options) {
     }
 
     function tileCanvas(context) {
-    	// create new canvas to get and work with pixelArray
+        // create new canvas to get and work with pixelArray
         var processedCanvas = document.createElement('canvas');
         var width = processedCanvas.width = context.canvas.width;
         processedCanvas.height = context.canvas.height;
         var processedContext = processedCanvas.getContext('2d');
         var originalImageData = context.getImageData(0, 0, context.canvas.width, context.canvas.height);
 
+        for (var i = 0; i < options.divY; i++) {
+            for (var j = 0; j < options.divX; j++) {
+                var x = j * options.tileWidth;
+                var y = i * options.tileHeight;
+                var imagePixels = getImagePixels(x, y, width, originalImageData);
+            }
+        }
+
+        options.targetElement.appendChild(processedCanvas);
+    }
+
+    function getImagePixels(startX, startY, width, originalImageData) {
+        var data = [];
+        var tileWidth = options.tileWidth;
+        var tileHeight = options.tileHeight;
+
+        for (var x = startX; x < (startX + tileWidth); x++) {
+            var xPos = x * 4;
+            for (var y = startY; y < (startY + tileHeight); y++) {
+                var yPos = y * width * 4;
+                data.push(
+                    originalImageData.data[xPos + yPos + 0],
+                    originalImageData.data[xPos + yPos + 1],
+                    originalImageData.data[xPos + yPos + 2],
+                    originalImageData.data[xPos + yPos + 3]
+                );
+            }
+        }
+        return data
     }
 
     options = extend(defaults, options);
