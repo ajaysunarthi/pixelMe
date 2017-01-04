@@ -32,9 +32,10 @@ function pixelMe(options) {
         options.divX = Math.floor(options.width / options.tileWidth);
         options.divY = Math.floor(options.height / options.tileHeight);
         var context = getContext();
-        console.log(context);
+        tileCanvas(context);
     }
 
+    // returns the 2d context of canvas with image values rendered on it
     function getContext() {
         var canvas = document.createElement('canvas');
         canvas.width = options.tileWidth * options.divX;
@@ -42,6 +43,16 @@ function pixelMe(options) {
         var context = canvas.getContext('2d');
         context.drawImage(options.image, 0, 0, canvas.width, canvas.height);
         return context;
+    }
+
+    function tileCanvas(context) {
+    	// create new canvas to get and work with pixelArray
+        var processedCanvas = document.createElement('canvas');
+        var width = processedCanvas.width = context.canvas.width;
+        processedCanvas.height = context.canvas.height;
+        var processedContext = processedCanvas.getContext('2d');
+        var originalImageData = context.getImageData(0, 0, context.canvas.width, context.canvas.height);
+
     }
 
     options = extend(defaults, options);
