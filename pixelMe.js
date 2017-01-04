@@ -58,6 +58,10 @@ function pixelMe(options) {
                 var x = j * options.tileWidth;
                 var y = i * options.tileHeight;
                 var imagePixels = getImagePixels(x, y, width, originalImageData);
+                var averageColor = getAverageColor(imagePixels);
+                var color = 'rgba(' + averageColor.r + ',' + averageColor.g + ',' + averageColor.b + ',' + options.opacity + ')';
+                processedContext.fillStyle = color;
+                render(x, y, processedContext);
             }
         }
 
@@ -82,6 +86,47 @@ function pixelMe(options) {
             }
         }
         return data
+    }
+
+    function getAverageColor(data) {
+
+        var count = 0,
+            rgb = { r: 0, g: 0, b: 0 },
+            length = data.length;
+
+        for (var i = 0; i < length; i += 4) {
+            ++count;
+            rgb.r += data[i];
+            rgb.g += data[i + 1];
+            rgb.b += data[i + 2];
+        }
+
+        rgb.r = Math.floor(rgb.r / count);
+        rgb.g = Math.floor(rgb.g / count);
+        rgb.b = Math.floor(rgb.b / count);
+
+        return rgb;
+    }
+
+    function render(x, y, context) {
+        var tileWidth = options.tileWidth;
+        var tileHeight = options.tileHeight;
+        if (options.tileShape === 'circle') {
+            var centerX = x + tileWidth / 2;
+            var centerY = y + tileHeight / 2;
+            var radius = Math.min(tileWidth, tileHeight) / 2;
+            context.beginPath();
+            context.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+            context.closePath();
+            context.fill();
+        } else if (options.tileShape === 'rectangle') {
+            var height = tileHeight;
+            var width = tileWidth;
+            context.beginPath();
+            context.rect(x, y, width, height);
+            context.closePath();
+            context.fill();
+        }
     }
 
     options = extend(defaults, options);
