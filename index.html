@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="UTF-8">
-	<title>pixelMe</title>
-	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
-	<link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <title>pixelMe</title>
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-	<div class="center">
+    <div class="center">
         <h3>Pixel Me</h3>
     </div>
     <div class="container">
@@ -17,13 +19,33 @@
         <div class="grid-col" id="target">
         </div>
     </div>
-    <div class="options"></div>
+    <div class="options">
+        <input type="file" name="input-img" id="input-img">
+        <label for="input-img">choose an image</label>
+
+        <select id="tileType">
+            <option disabled>choose tile type</option>
+            <option value="circle" selected>circle</option>
+            <option value="rectangle">rectangle</option>
+        </select>
+
+        <select id="tileSize">
+            <option disabled>choose tile size</option>
+            <option value="2">2</option>
+            <option value="3" selected>3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+        </select>
+                
+    </div>
     <script src="pixelMe.js"></script>
     <script>
-    	var img = document.getElementById('image');
-    	var target = document.getElementById('target');
+    var img = document.getElementById('image');
+    var target = document.getElementById('target');
 
-    	var options = {
+    var options = {
         image: img,
         targetElement: target,
         width: img.width,
@@ -31,7 +53,7 @@
     };
 
     pixelMe(options);
-
     </script>
 </body>
+
 </html>
