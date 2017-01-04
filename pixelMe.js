@@ -17,4 +17,16 @@ function pixelMe(options) {
         'height': null
     };
 
+    // extend the default options
+    function extend(destination, sources) {
+        for (var source in sources) {
+            if (sources.hasOwnProperty(source)) {
+                destination[source] = sources[source];
+            }
+        }
+        return destination;
+    };
+
+    options = extend(defaults, options);
+
 }
