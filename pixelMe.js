@@ -133,6 +133,11 @@ function pixelMe(options) {
 
     if (options.image.complete) {
         process();
+    } else {
+        options.image.onload = function() {
+            process();
+            options.image.onload = null;
+        }
     }
 
 }
