@@ -1,6 +1,8 @@
-# pixelMe
+![](logo.png?raw=true) _**pixelMe**_
 
 I am always fascinated with the background images with small pixel overlay styles in it.
+
+![](main.png?raw=true)
 
 Creating those styles in photoshop,CSS is easy.But CSS is just filter based overlay and it does not change the image.
 
@@ -10,3 +12,4 @@ The idea is to get the image pixels using canvas. And for the given tile size av
 
 Choose any of your local images and test out the effects.
 
+![](screenshot.png?raw=true)
